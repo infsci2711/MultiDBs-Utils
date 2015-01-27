@@ -1,5 +1,9 @@
 package edu.pitt.sis.infsci2711.multidbs.utils;
 
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
@@ -41,6 +45,8 @@ public class JerseyJettyServer {
         
         ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
         context.addServlet(sh, contextPath);
+        
+        context.addFilter(ApiOriginFilter.class, contextPath, EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
         
         server.setStopAtShutdown(true);
         
