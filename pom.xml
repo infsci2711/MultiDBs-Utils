@@ -5,13 +5,32 @@
 
 	<groupId>edu.pitt.sis.infsci2711</groupId>
 	<artifactId>multidbsutils</artifactId>
+	<version>0.1-SNAPSHOT</version>
+
 	<packaging>jar</packaging>
 	<name>MultiDBsUtils</name>
 
 	<properties>
 		<!-- ${project.parent.basedir} didn't work -->
 		<main.basedir>${project.basedir}/..</main.basedir>
+
+		<jettyVersion>9.2.3.v20140905</jettyVersion>
+		
+		<jersey.version>2.15</jersey.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 	<build>
 		<plugins>
@@ -143,6 +162,29 @@
 			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jettyVersion}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>${jettyVersion}</version>
+		</dependency>
+
+		<dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
+        </dependency>
+        
 
 	</dependencies>
 
