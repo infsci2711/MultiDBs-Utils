@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 //TODO: the same class is in the war project, move to utils and have only one copy
 public class ApiOriginFilter implements javax.servlet.Filter {
-	  @Override
-	  public void doFilter(final ServletRequest request, final ServletResponse response,
+	 
+	@Override
+	public void doFilter(final ServletRequest request, final ServletResponse response,
 	      final FilterChain chain) throws IOException, ServletException {
 	    HttpServletResponse res = (HttpServletResponse) response;
 	    
@@ -29,11 +30,11 @@ public class ApiOriginFilter implements javax.servlet.Filter {
 	      res.addHeader("Access-Control-Allow-Headers", "Content-Type");
 	  }
 
-	  @Override
-	  public void destroy() {
-	  }
+	@Override
+	public void destroy() {
+	}
 
-	  @Override
-	  public void init(final FilterConfig filterConfig) throws ServletException {
-	  }
+	@Override
+	public void init(final FilterConfig filterConfig) throws ServletException {
+	}
 }
