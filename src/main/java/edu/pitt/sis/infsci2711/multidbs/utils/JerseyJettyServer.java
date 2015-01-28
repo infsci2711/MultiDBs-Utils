@@ -20,7 +20,7 @@ public class JerseyJettyServer {
 	private final String providerPackages;
 	private final String contextPath;
 	
-	public static final String DEFAULT_CONTEXT_PATH = "/rest/*";
+	public static final String DEFAULT_CONTEXT_PATH = "/*"; //"/rest/*";
 	
 	public JerseyJettyServer(final int port, final String providerPackages) {
 		this.port = port;
