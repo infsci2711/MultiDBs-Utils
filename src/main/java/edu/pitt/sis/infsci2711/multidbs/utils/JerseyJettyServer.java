@@ -20,6 +20,8 @@ public class JerseyJettyServer {
 	private final String providerPackages;
 	private final String contextPath;
 	
+	private Server server;
+	
 	public static final String DEFAULT_CONTEXT_PATH = "/*"; //"/rest/*";
 	
 	public JerseyJettyServer(final int port, final String providerPackages) {
@@ -41,7 +43,7 @@ public class JerseyJettyServer {
 
 		sh.setInitParameter(ServerProperties.PROVIDER_PACKAGES, providerPackages);
 		
-		Server server = new Server(port);
+		server = new Server(port);
         
         ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
         context.addServlet(sh, contextPath);
@@ -66,6 +68,10 @@ public class JerseyJettyServer {
        server.join();
 		
        logger.info("Jetty Server is shutdown");
+	}
+	
+	public void stop() throws Exception {
+		server.stop();
 	}
 }
 
