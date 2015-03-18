@@ -9,8 +9,11 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
+
 
 public class JerseyJettyServer {
 	
@@ -37,9 +40,17 @@ public class JerseyJettyServer {
 	public void start() throws Exception {
 		logger.info("Starting Jetty Server bound to port " + port);
 		
+//		ResourceConfig rc = new ResourceConfig();
+//		rc.register(MultiPartFeature.class);
+		
+//		ServletContainer sc = new ServletContainer(rc);
+		
 		ServletHolder sh = new ServletHolder(ServletContainer.class);    
-
+	
 		sh.setInitParameter(ServerProperties.PROVIDER_PACKAGES, providerPackages);
+		
+		// For the file upload
+		sh.setInitParameter(ServerProperties.PROVIDER_CLASSNAMES, "org.glassfish.jersey.media.multipart.MultiPartFeature");
 		
 		Server server = new Server(port);
         
