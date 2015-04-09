@@ -36,6 +36,7 @@ public class JerseyClientUtil {
 		
 		return response;
 	}
+	
 	/**
 	 * Will send post request to the address specified by the parameter.
 	 * 
@@ -51,6 +52,25 @@ public class JerseyClientUtil {
 		WebTarget target = client.target(restContext + restResource);
 		   
 		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
+		
+		return response;
+	}
+	
+	/**
+	 * Will send post request to the address specified by the parameter.
+	 * 
+	 * @param restContext the context of the rest (e.g. the base part of the REST API URL)
+	 * @param restResource the resource name with params. MAKE SURE it starts with "/"
+	 * @param data the data to send (your view model)
+	 * @return
+	 */
+	public static Response doPut(final String restContext,  final String restResource, final Object data) {
+		
+		Client client = getClient();
+		
+		WebTarget target = client.target(restContext + restResource);
+		   
+		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).put(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
 		
 		return response;
 	}
