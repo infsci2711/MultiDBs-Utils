@@ -170,6 +170,17 @@
 			<artifactId>jersey-media-multipart</artifactId>
 			<version>2.5.1</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.8</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
         
 	</dependencies>
 

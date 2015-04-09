@@ -1,5 +1,8 @@
 package edu.pitt.sis.infsci2711.multidbs.utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.EnumSet;
 
 import javax.servlet.DispatcherType;
@@ -9,8 +12,6 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
 
@@ -33,10 +34,26 @@ public class JerseyJettyServer {
 		this.contextPath = DEFAULT_CONTEXT_PATH;
 	}
 	
+	public JerseyJettyServer(final int port, final String providerPackages, final File propertiesFile)
+			throws FileNotFoundException, IOException {
+		this.port = port;
+		this.providerPackages = providerPackages;
+		this.contextPath = DEFAULT_CONTEXT_PATH;
+		PropertiesManager.getInstance().loadProperties(propertiesFile);
+	}
+	
 	public JerseyJettyServer(final int port, final String providerPackages, final String contextPath) {
 		this.port = port;
 		this.providerPackages = providerPackages;
 		this.contextPath = contextPath;
+	}
+	
+	public JerseyJettyServer(final int port, final String providerPackages, final String contextPath, final File propertiesFile) 
+			throws FileNotFoundException, IOException {
+		this.port = port;
+		this.providerPackages = providerPackages;
+		this.contextPath = contextPath;
+		PropertiesManager.getInstance().loadProperties(propertiesFile);
 	}
 	
 	public void start() throws Exception {
