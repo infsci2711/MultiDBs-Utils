@@ -7,11 +7,16 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.client.ClientConfig;
 
 import com.sun.jersey.api.json.JSONConfiguration;
 
 public class JerseyClientUtil {
+	
+	final static Logger logger = LogManager.getLogger(JerseyClientUtil.class.getName());
+	
 	private static Client getClient() {
 		ClientConfig clientConfit = new ClientConfig();
 		clientConfit.property(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
@@ -28,11 +33,15 @@ public class JerseyClientUtil {
 	 */
 	public static Response doGet(final String restContext,  final String restResource) {
 		
+		logger.info(String.format("About to do Get ruquest to %s%s", restContext, restResource));
+		
 		Client client = getClient();
 		
 		WebTarget target = client.target(restContext + restResource);
 		   
 		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
+		
+		logger.info(String.format("Got reply from Get %s%s. Response status is %d", restContext, restResource, response.getStatus()));
 		
 		return response;
 	}
@@ -47,11 +56,15 @@ public class JerseyClientUtil {
 	 */
 	public static Response doPost(final String restContext,  final String restResource, final Object data) {
 		
+		logger.info(String.format("About to do Post ruquest to %s%s", restContext, restResource));
+		
 		Client client = getClient();
 		
 		WebTarget target = client.target(restContext + restResource);
 		   
 		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
+		
+		logger.info(String.format("Got reply from Post %s%s. Response status is %d", restContext, restResource, response.getStatus()));
 		
 		return response;
 	}
@@ -66,11 +79,16 @@ public class JerseyClientUtil {
 	 */
 	public static Response doPut(final String restContext,  final String restResource, final Object data) {
 		
+		logger.info(String.format("About to do Put ruquest to %s%s", restContext, restResource));
+		
 		Client client = getClient();
 		
 		WebTarget target = client.target(restContext + restResource);
 		   
 		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).put(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
+		
+		logger.info(String.format("Got reply from Put %s%s. Response status is %d", restContext, restResource, response.getStatus()));
+		
 		
 		return response;
 	}
