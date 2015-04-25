@@ -35,9 +35,7 @@ public class JerseyClientUtil {
 		
 		logger.info(String.format("About to do Get ruquest to %s%s", restContext, restResource));
 		
-		Client client = getClient();
-		
-		WebTarget target = client.target(restContext + restResource);
+		WebTarget target = getTarget(restContext, restResource);
 		   
 		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
 		
@@ -45,7 +43,7 @@ public class JerseyClientUtil {
 		
 		return response;
 	}
-	
+
 	/**
 	 * Will send post request to the address specified by the parameter.
 	 * 
@@ -58,9 +56,7 @@ public class JerseyClientUtil {
 		
 		logger.info(String.format("About to do Post ruquest to %s%s", restContext, restResource));
 		
-		Client client = getClient();
-		
-		WebTarget target = client.target(restContext + restResource);
+		WebTarget target = getTarget(restContext, restResource);
 		   
 		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
 		
@@ -81,15 +77,22 @@ public class JerseyClientUtil {
 		
 		logger.info(String.format("About to do Put ruquest to %s%s", restContext, restResource));
 		
-		Client client = getClient();
-		
-		WebTarget target = client.target(restContext + restResource);
+		WebTarget target = getTarget(restContext, restResource);
 		   
 		Response response = target.request(MediaType.APPLICATION_JSON_TYPE).put(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
 		
 		logger.info(String.format("Got reply from Put %s%s. Response status is %d", restContext, restResource, response.getStatus()));
-		
-		
+
 		return response;
+	}
+	
+	private static WebTarget getTarget(final String restContext,
+			final String restResource) {
+		Client client = getClient();
+		
+		String url = restContext + restResource;
+				
+		WebTarget target = client.target(url);
+		return target;
 	}
 }
