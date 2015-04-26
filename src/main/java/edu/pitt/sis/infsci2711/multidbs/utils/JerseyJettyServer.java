@@ -78,6 +78,7 @@ public class JerseyJettyServer {
         context.addServlet(sh, contextPath);
         
         context.addFilter(ApiOriginFilter.class, contextPath, EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
+        context.addFilter(LoggerFilter.class, contextPath, EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
         
         server.setStopAtShutdown(true);
         
