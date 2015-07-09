@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.EnumSet;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
 
 import javax.servlet.DispatcherType;
 
@@ -71,6 +74,7 @@ public class JerseyJettyServer {
 
 		// For the file upload
 		sh.setInitParameter(ServerProperties.PROVIDER_CLASSNAMES, "org.glassfish.jersey.media.multipart.MultiPartFeature");
+		sh.setInitParameter("com.sun.jersey.api.json.POJOMappingFeature", "true");
 
 		server = new Server(port);
         
@@ -81,6 +85,14 @@ public class JerseyJettyServer {
         context.addFilter(LoggerFilter.class, contextPath, EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
         
         server.setStopAtShutdown(true);
+        
+        Handler lh = new ConsoleHandler();
+        lh.setLevel(Level.ALL);
+        
+        java.util.logging.Logger log = java.util.logging.Logger.getLogger("org.glassfish.jersey");
+        log.addHandler(lh);
+        log.setLevel(Level.ALL);
+        
         
         try {
        	 server.start();

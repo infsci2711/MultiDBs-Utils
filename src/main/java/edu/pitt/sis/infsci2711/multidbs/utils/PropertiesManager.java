@@ -29,6 +29,7 @@ public class PropertiesManager {
 	}
 	
 	public String getStringProperty(final String propertyName) {
+		System.out.println("-------------------"+properties.getProperty(propertyName));
 		return properties.getProperty(propertyName);
 	}
 	
@@ -37,6 +38,7 @@ public class PropertiesManager {
 	}
 	
 	public int getIntProperty(final String propertyName) {
+//		System.out.println("*********************************"+propertyName);
 		return Integer.parseInt(properties.getProperty(propertyName));
 	}
 	
